@@ -39,6 +39,8 @@ echo "your text here" | caseconv <command>
 | `kebab` | Convert to kebab-case | "HelloWorld" | "hello-world" |
 | `uppersnake` | Convert to UPPER_SNAKE_CASE | "hello world" | "HELLO_WORLD" |
 | `upperkebab` | Convert to UPPER-KEBAB-CASE | "hello world" | "HELLO-WORLD" |
+| `lowercase` | Convert to lowercase | "Hello World" | "hello world" |
+| `uppercase` | Convert to UPPERCASE | "Hello World" | "HELLO WORLD" |
 
 ### Go-Specific Commands
 

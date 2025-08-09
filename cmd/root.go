@@ -68,6 +68,8 @@ func init() {
 	rootCmd.AddCommand(upperSnakeCmd)
 	rootCmd.AddCommand(kebabCmd)
 	rootCmd.AddCommand(upperKebabCmd)
+	rootCmd.AddCommand(lowercaseCmd)
+	rootCmd.AddCommand(uppercaseCmd)
 }
 
 // Camel case command
@@ -186,6 +188,36 @@ var upperKebabCmd = &cobra.Command{
 			return err
 		}
 		fmt.Println(strcase.ToKEBAB(text))
+		return nil
+	},
+}
+
+// Lowercase command
+var lowercaseCmd = &cobra.Command{
+	Use:   "lowercase [text]",
+	Short: "Convert text to lowercase",
+	Long:  "Convert text to lowercase (e.g., 'Hello World' -> 'hello world')",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		text, err := getInputText(cmd, args)
+		if err != nil {
+			return err
+		}
+		fmt.Println(strings.ToLower(text))
+		return nil
+	},
+}
+
+// Uppercase command
+var uppercaseCmd = &cobra.Command{
+	Use:   "uppercase [text]",
+	Short: "Convert text to UPPERCASE",
+	Long:  "Convert text to UPPERCASE (e.g., 'Hello World' -> 'HELLO WORLD')",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		text, err := getInputText(cmd, args)
+		if err != nil {
+			return err
+		}
+		fmt.Println(strings.ToUpper(text))
 		return nil
 	},
 }
