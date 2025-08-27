@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"unicode"
 
 	"github.com/ettle/strcase"
 	"github.com/spf13/cobra"
@@ -82,6 +83,7 @@ var camelCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strcase.ToCamel(text))
 		return nil
 	},
@@ -97,6 +99,7 @@ var goCamelCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strcase.ToGoCamel(text))
 		return nil
 	},
@@ -112,6 +115,7 @@ var pascalCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strcase.ToPascal(text))
 		return nil
 	},
@@ -127,6 +131,7 @@ var goPascalCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strcase.ToGoPascal(text))
 		return nil
 	},
@@ -142,6 +147,7 @@ var snakeCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strcase.ToSnake(text))
 		return nil
 	},
@@ -157,6 +163,7 @@ var kebabCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strcase.ToKebab(text))
 		return nil
 	},
@@ -172,6 +179,7 @@ var upperSnakeCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strcase.ToSNAKE(text))
 		return nil
 	},
@@ -187,6 +195,7 @@ var upperKebabCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strcase.ToKEBAB(text))
 		return nil
 	},
@@ -202,6 +211,7 @@ var lowercaseCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strings.ToLower(text))
 		return nil
 	},
@@ -217,7 +227,20 @@ var uppercaseCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
+		text = normalize(text)
 		fmt.Println(strings.ToUpper(text))
 		return nil
 	},
+}
+
+func normalize(text string) string {
+	var result strings.Builder
+
+	for _, char := range text {
+		if unicode.IsLetter(char) || unicode.IsDigit(char) || char == ' ' {
+			result.WriteRune(char)
+		}
+	}
+
+	return result.String()
 }
